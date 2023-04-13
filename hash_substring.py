@@ -1,3 +1,4 @@
+import sys
 
 def rabin_karp(text, pattern):
     n = len(text)

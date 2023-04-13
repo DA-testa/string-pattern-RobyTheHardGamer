@@ -50,20 +50,20 @@ def rabin_karp(text, pattern):
 
 def main():
 
-    print("Enter 'I' to input from keyboard, or 'F' to input from file")
+    ##print("Enter 'I' to input from keyboard, or 'F' to input from file")
     choice = input().strip()
 
     input1 = ""
     input2 = ""
     if choice == "I":
-        print("Enter pattern:")
+        ##print("Enter pattern:")
         input1 = input().strip()
 
-        print("Enter text:")
+        ##print("Enter text:")
         input2 = input().strip()
 
     elif choice == "F":
-        print("Enter file name: ")
+        ##print("Enter file name: ")
         try:
             fileName = input().strip()
             with open(fileName, 'r') as f:
@@ -72,10 +72,10 @@ def main():
                 ##print("Firstline is : " + input1)
                 ##print("Secondline is : " + input2)
         except:
-            print("error, file not found")
+            ##print("error, file not found")
             sys.exit(0)
     else:
-        print("wrong input")
+        ##print("wrong input")
 
     pattern = input1
     text = input2
@@ -85,11 +85,11 @@ def main():
     
 
     if index == -1:
-        print("Pattern not found in the text")
+        ##print("Pattern not found in the text")
     if index == -2:
-        print("error with text or pattern")
+        ##print("error with text or pattern")
     else:
-        print(f"Pattern found at index {index}")
+        ##print(f"Pattern found at index {index}")
 
 if __name__ == "__main__":
     main()

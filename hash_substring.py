@@ -1,32 +1,97 @@
-# python3
+import sys
 
-def read_input():
-    # this function needs to aquire input both from keyboard and file
-    # as before, use capital i (input from keyboard) and capital f (input from file) to choose which input type will follow
-    
-    
-    # after input type choice
-    # read two lines 
-    # first line is pattern 
-    # second line is text in which to look for pattern 
-    
-    # return both lines in one return
-    
-    # this is the sample return, notice the rstrip function
-    return (input().rstrip(), input().rstrip())
+def rabin_karp(text, pattern):
+    n = len(text)
+    m = len(pattern)
+    p = 31
+    m_pow = p**(m-1)
 
-def print_occurrences(output):
-    # this function should control output, it doesn't need any return
-    print(' '.join(map(str, output)))
+    bool = pattern.isalpha()
+    if bool == False:
+        return -2
+    bool = text.isalpha()
+    if bool == False:
+        return -2
 
-def get_occurrences(pattern, text):
-    # this function should find the occurances using Rabin Karp alghoritm 
+    pattern_hash = sum(ord(pattern[i]) * p**(m-1-i) for i in range(m))
+    rolling_hash = sum(ord(text[i]) * p**(m-1-i) for i in range(m))
+    nrArr = []
+    for i in range(n - m + 1):
+        if rolling_hash == pattern_hash and text[i:i+m] == pattern:
+            nrArr.append(i)
+        if i < n - m:
+            rolling_hash -= ord(text[i]) * m_pow
+            rolling_hash = rolling_hash * p + ord(text[i+m])
 
-    # and return an iterable variable
-    return [0]
+    textLen = len(text)
+    patternLen = len(pattern)
 
+    if patternLen<1:
+        return -2
 
-# this part launches the functions
-if __name__ == '__main__':
-    print_occurrences(get_occurrences(*read_input()))
+    if textLen<patternLen:
+        return -2
 
+    if 500000<textLen:
+        return -2
+
+    indexLen = len(pattern)
+    totalLen = textLen*indexLen
+
+    if 100000000<totalLen:
+        return -2
+
+    if not nrArr:
+        return -1
+    return nrArr
+
+def main():
+
+    #print("Enter 'I' to input from keyboard, or 'F' to input from file")
+    choice = input().strip()
+
+    input1 = ""
+    input2 = ""
+    if choice == "I":
+        #print("Enter pattern:")
+        input1 = input().strip()
+
+        #print("Enter text:")
+        input2 = input().strip()
+
+    elif choice == "F":
+        #print("Enter file name: ")
+        try:
+            fileName = input().strip()
+            fileName2 = "tests/" + fileName
+            with open(fileName2, 'r') as f:
+                input1 = f.readline().strip()
+                input2 = f.readline().strip()
+                ##print("Firstline is : " + input1)
+                ##print("Secondline is : " + input2)
+        except:
+            #print("error, file not found")
+            sys.exit(0)
+    else:
+        #print("wrong input")
+        sys.exit(0)
+
+    pattern = input1
+    text = input2
+
+    index = rabin_karp(text, pattern)
+
+      
+
+    if index == -1:
+        #print("Pattern not found in the text")
+        sys.exit(0)
+    if index == -2:
+        #print("error with text or pattern")
+        sys.exit(0)
+    else:
+        for i in range(0, len(index)):    
+            print(index[i], end=' '), 
+
+if __name__ == "__main__":
+    main()

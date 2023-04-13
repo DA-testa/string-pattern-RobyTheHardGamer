@@ -63,7 +63,8 @@ def main():
         #print("Enter file name: ")
         try:
             fileName = input().strip()
-            with open(fileName, 'r') as f:
+            fileName2 = "tests/" + fileName
+            with open(fileName2, 'r') as f:
                 input1 = f.readline().strip()
                 input2 = f.readline().strip()
                 ##print("Firstline is : " + input1)

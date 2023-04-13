@@ -73,20 +73,22 @@ def main():
             sys.exit(0)
     else:
         print("wrong input")
+        sys.exit(0)
 
     pattern = input1
     text = input2
 
     index = rabin_karp(text, pattern)
 
-    
+      
 
     if index == -1:
         print("Pattern not found in the text")
     if index == -2:
         print("error with text or pattern")
     else:
-        print(f"Pattern found at index {index}")
+        for i in range(0, len(index)):    
+            print(index[i], end=' '), 
 
 if __name__ == "__main__":
     main()
